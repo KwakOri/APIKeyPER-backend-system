@@ -8,7 +8,6 @@ router.get("/", async (req, res, next) => {
   const query = "SELECT * FROM users";
   const { rows } = await client.query(query);
   res.send(JSON.stringify({ data: rows }));
-  client.end();
 });
 
 module.exports = router;
