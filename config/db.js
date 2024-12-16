@@ -1,7 +1,6 @@
 require("dotenv").config();
 
-const pg = require("pg");
-const { Client } = pg;
+const { Client } = require("pg");
 
 const client = new Client({
   host: process.env.PG_DB_HOST,
@@ -11,17 +10,9 @@ const client = new Client({
   database: process.env.PG_DB_DATABASE,
 });
 
-client.connect();
-
-const query = {
-  text: "SELECT * FROM users",
-};
-client
-  .query(query)
-  .then((res) => {
-    console.log(res.rows[0]);
-    client.end();
-  })
-  .catch((e) => console.error(e.stack));
+client.connect((err) => {
+  if (err) return console.log("not connected");
+  else return console.log("DB connected successfully");
+});
 
 module.exports = client;
