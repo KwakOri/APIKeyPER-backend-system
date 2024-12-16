@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for node-cool-bush-2950 on 2024-12-16T14:24:21+09:00
+# fly.toml app configuration file generated for apikeyper-node on 2024-12-16T15:28:13+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'node-cool-bush-2950'
+app = 'apikeyper-node'
 primary_region = 'sin'
 
 [build]
@@ -17,6 +17,6 @@ primary_region = 'sin'
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
+  memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1
