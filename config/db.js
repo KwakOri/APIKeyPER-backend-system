@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const { Client } = require("pg");
+const logger = require("./logger");
 
 const client = new Client({
   host: process.env.PG_DB_HOST,
@@ -11,8 +12,8 @@ const client = new Client({
 });
 
 client.connect((err) => {
-  if (err) return console.log("not connected");
-  else return console.log("DB connected successfully");
+  if (err) return logger.error("not connected");
+  else return logger.info("DB connected successfully");
 });
 
 module.exports = client;
