@@ -7,7 +7,7 @@ const router = express.Router();
 /* GET home page. */
 
 router.get("/", async (req, res, next) => {
-  const query = "SELECT * FROM users";
+  const query = { text: "SELECT * FROM users" };
   try {
     const { rows } = await pgQuery(query);
     logger.info("유저 조회 성공");
