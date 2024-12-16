@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for apikeyper-back on 2024-12-16T15:58:21+09:00
+# fly.toml app configuration file generated for apikeyper-back on 2024-12-16T23:12:14+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'apikeyper-back'
-primary_region = 'sin'
+primary_region = 'nrt'
 
 [build]
 
@@ -17,6 +17,4 @@ primary_region = 'sin'
   processes = ['app']
 
 [[vm]]
-  memory = '256mb'
-  cpu_kind = 'shared'
-  cpus = 1
+  size = 'shared-cpu-1x'
