@@ -1,6 +1,6 @@
-var express = require("express");
+const express = require("express");
 const client = require("../config/db");
-var router = express.Router();
+const router = express.Router();
 
 /* GET home page. */
 
