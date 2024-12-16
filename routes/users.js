@@ -1,11 +1,10 @@
 require("dotenv").config();
 
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+
+const router = express.Router();
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send(JSON.stringify({ message: process.env.MESSAGE }));
-});
+router.get("/", async (req, res, next) => {});
 
 module.exports = router;
