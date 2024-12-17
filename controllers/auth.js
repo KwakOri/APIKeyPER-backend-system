@@ -229,13 +229,10 @@ const validateEmail = async (req, res) => {
   try {
     const { email } = req.body;
     const isExistingUserQuery = {
-      query: `SELECT * FROM users WHERE email = $1`,
+      text: `SELECT * FROM users WHERE email = $1`,
       values: [email],
     };
-    const { rows: existingUser } = await client.query(
-      isExistingUserQuery.query,
-      isExistingUserQuery.values
-    );
+    const { rows: existingUser } = await pgQuery(isExistingUserQuery);
     const isExist = existingUser.length > 0;
     if (isExist) {
       console.log(
