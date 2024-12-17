@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const { Pool } = require("pg");
-const logger = require("./logger");
 
 const pool = new Pool({
   host: process.env.PG_DB_HOST,
@@ -11,17 +10,17 @@ const pool = new Pool({
   database: process.env.PG_DB_DATABASE,
 });
 
-const pgQuery = async (text) => {
+const pgQuery = async (query) => {
   const client = await pool.connect();
   try {
-    return await client.query(text);
+    return await client.query(query);
   } catch (err) {
-    logger.error(err);
+    throw new Error(err);
   } finally {
     client.release(); // 사용 후 연결 반환
   }
 };
 
-console.log("DB connected");
+console.log("POSTGRESQL is connected");
 
 module.exports = pgQuery;
