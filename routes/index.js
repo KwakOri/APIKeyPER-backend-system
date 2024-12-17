@@ -5,10 +5,12 @@ const router = express.Router();
 
 const authRouter = require("./auth");
 const tokenRouter = require("./token");
+const accountRouter = require("./account");
 const verifyJWT = require("../middleware/verifyJWT");
 
 router.use("/api/auth", authRouter);
 router.use("/api/token", verifyJWT, tokenRouter);
+router.use("/api/account", verifyJWT, accountRouter);
 
 /* GET home page. */
 
