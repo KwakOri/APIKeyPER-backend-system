@@ -4,17 +4,18 @@ const pgQuery = require("../config/db");
 const router = express.Router();
 
 const authRouter = require("./auth");
-const usersRouter = require("./users");
+const tokenRouter = require("./token");
+const verifyJWT = require("../middleware/verifyJWT");
 
 router.use("/api/auth", authRouter);
-router.use("/api/users", usersRouter);
+router.use("/api/token", verifyJWT, tokenRouter);
 
 /* GET home page. */
 
 router.get("/", async (req, res, next) => {
   const query = { text: "SELECT * FROM users" };
   try {
-    const { rows } = await pgQuery(query);
+    await pgQuery(query);
     console.log(":200 :GET / message: APIKeyPER에 어서오세요.");
     res.send(JSON.stringify({ message: "APIKeyPER에 어서오세요." }));
   } catch (err) {
