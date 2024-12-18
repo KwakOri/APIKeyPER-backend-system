@@ -13,6 +13,9 @@ app.use(
     origin: [
       "https://api-key-per-front.vercel.app",
       "https://api-key-per-front-git-dev-kwakoris-projects.vercel.app",
+      "https://apikeyper.site",
+      "https://www.apikeyper.site",
+      "apikeyper.site",
       "http://localhost:3001",
     ],
     credentials: true,
