@@ -334,7 +334,7 @@ const handleRefreshToken = async (req, res) => {
 
   const { rows } = await pgQuery(findRefreshTokenQuery);
 
-  if (rows.length === 0) return res.sendStatus(404);
+  if (rows.length === 0) return res.sendStatus(401);
 
   const foundUser = rows[0];
 
