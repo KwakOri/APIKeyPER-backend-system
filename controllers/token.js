@@ -12,11 +12,13 @@ const getAllTokenData = async (req, res) => {
     const { rows } = await pgQuery(getAllTokenDataQuery);
 
     if (rows.length === 0) {
-      console.log(":404 :GET /api/token 데이터 없음");
-      return res.send(JSON.stringify({ data: null }));
+      console.log(":200 :GET /api/token 조회 성공, 데이터 없음");
+      return res.status(200).send(JSON.stringify({ data: [] }));
     } else {
       console.log(":200 :GET /api/token 토큰 조회 성공");
-      return res.send(JSON.stringify({ data: Token.makeRowsToTokens(rows) }));
+      return res
+        .status(200)
+        .send(JSON.stringify({ data: Token.makeRowsToTokens(rows) }));
     }
   } catch (err) {
     console.error(":500 :GET /api/token 토큰 조회 실패");
