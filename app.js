@@ -13,6 +13,7 @@ app.use(
     origin: [
       "https://api-key-per-front.vercel.app",
       "https://api-key-per-front-git-dev-kwakoris-projects.vercel.app",
+      "http://localhost:3001",
     ],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
