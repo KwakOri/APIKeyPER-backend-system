@@ -8,19 +8,17 @@ const { sendScheduledNotification } = require("./controllers/firebase");
 
 const app = express();
 
-app.options("*", cors());
-
 app.use(
   cors({
     origin: [
       "https://api-key-per-front.vercel.app",
       "https://api-key-per-front-git-dev-kwakoris-projects.vercel.app",
-      "https://api-key-per-front-ng1ez5zt1-kwakoris-projects.vercel.app",
+      "https://api-key-per-front-h8vyump7e-kwakoris-projects.vercel.app/",
     ],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["Content-Length", "Authorization"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE, OPTIONS"],
   })
 );
 
