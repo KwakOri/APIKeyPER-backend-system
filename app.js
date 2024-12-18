@@ -31,13 +31,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/", indexRouter);
 
-// nodeCron.schedule("* * * * *", async () => {
-//   try {
-//     await sendScheduledNotification();
-//     console.log("Scheduled notification sent successfully");
-//   } catch (err) {
-//     console.error(err);
-//   }
-// });
+nodeCron.schedule("40 * * * *", async () => {
+  try {
+    await sendScheduledNotification();
+    console.log("Scheduled notification sent successfully");
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 module.exports = app;
