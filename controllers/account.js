@@ -8,7 +8,6 @@ const deleteAccount = async (req, res) => {
       text: `DELETE FROM users WHERE id = $1`,
       values: [user_id],
     };
-
     await pgQuery(deleteAccountQuery);
 
     console.log(":200 :DELETE /account 회원 탈퇴 성공");
