@@ -88,12 +88,12 @@ const logIn = async (req, res) => {
     console.log(":200 :POST /api/auth/log-in 로그인 성공");
 
     res.setHeader("authorization", `Bearer ${accessToken}`);
-    res.setHeader("Cache-Control", "no-store");
+
     return res
       .cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "none",
+        sameSite: "lax",
         maxAge: 24 * 60 * 60 * 1000,
       })
       .send(JSON.stringify({ accessToken }));
