@@ -55,14 +55,12 @@ const sendScheduledNotification = async () => {
     const { rows: users } = await pgQuery(getUsersQuery);
     const { rows: tokens } = await pgQuery(getTokensQuery);
     const usersHavingDeviceToken = users.filter((user) => user.device_token);
-    // console.log("users => ", users);
-    console.log("usersHavingDeviceToken => ", usersHavingDeviceToken);
-    // console.log("tokens => ", tokens);
 
     usersHavingDeviceToken.forEach((user) => {
       const usersTokens = tokens.filter(
         (token) => String(user.id) === String(token.user_id)
       );
+
       if (usersTokens.length === 0) return;
 
       const { DAYS_7, DAYS_30 } = usersTokens.reduce(

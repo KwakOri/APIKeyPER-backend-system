@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/", indexRouter);
 
-nodeCron.schedule("40 * * * *", async () => {
+nodeCron.schedule("0 9 * * *", async () => {
   try {
     await sendScheduledNotification();
     console.log("Scheduled notification sent successfully");

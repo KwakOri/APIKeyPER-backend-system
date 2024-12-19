@@ -6,10 +6,12 @@ const router = express.Router();
 const authRouter = require("./auth");
 const tokenRouter = require("./token");
 const accountRouter = require("./account");
+const testRouter = require("./test");
 
 const verifyJWT = require("../middleware/verifyJWT");
 
 router.use("/api/auth", authRouter);
+router.use("/api/test", testRouter);
 router.use("/api/token", verifyJWT, tokenRouter);
 router.use("/api/account", verifyJWT, accountRouter);
 
