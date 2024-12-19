@@ -1,5 +1,5 @@
 const ACCESS_TOKEN_EXPIRY_TIME = "15s";
-const REFRESH_TOKEN_EXPIRY_TIME = "1h";
+const REFRESH_TOKEN_EXPIRY_TIME = "1m";
 const EMAIL_VERIFICATION_TOKEN_EXPIRY_TIME = "1d";
 
 module.exports = {
