@@ -93,7 +93,7 @@ const logIn = async (req, res) => {
       .cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "lax",
+        sameSite: "strict",
         maxAge: 24 * 60 * 60 * 1000,
       })
       .send(JSON.stringify({ accessToken }));
@@ -323,42 +323,53 @@ const verifyEmailVerificationToken = async (req, res) => {
 };
 
 const handleRefreshToken = async (req, res) => {
-  const cookies = req.cookies;
+  try {
+    const cookies = req.cookies;
 
-  if (!cookies?.refreshToken) return res.status(401);
+    if (!cookies?.refreshToken) return res.status(401);
 
-  const refreshToken = cookies.refreshToken;
+    const refreshToken = cookies.refreshToken;
 
-  const findRefreshTokenQuery = {
-    text: `SELECT * FROM users WHERE refresh_token = $1`,
-    values: [refreshToken],
-  };
+    const findRefreshTokenQuery = {
+      text: `SELECT * FROM users WHERE refresh_token = $1`,
+      values: [refreshToken],
+    };
 
-  const { rows } = await pgQuery(findRefreshTokenQuery);
+    const { rows } = await pgQuery(findRefreshTokenQuery);
 
-  if (rows.length === 0) return res.sendStatus(401);
+    if (rows.length === 0) return res.sendStatus(401);
 
-  const foundUser = rows[0];
+    const foundUser = rows[0];
 
-  //evaluate jwt
+    //evaluate jwt
 
-  jwt.verify(
-    refreshToken,
-    process.env.JWT_REFRESH_TOKEN_SECRET_KEY,
-    (err, decoded) => {
-      if (err || foundUser.id !== decoded.user_id) return res.sendStatus(401);
+    jwt.verify(
+      refreshToken,
+      process.env.JWT_REFRESH_TOKEN_SECRET_KEY,
+      (err, decoded) => {
+        if (err || foundUser.id !== decoded.user_id) return res.sendStatus(401);
 
-      const accessToken = jwt.sign(
-        { user_id: foundUser.id },
-        process.env.JWT_ACCESS_TOKEN_SECRET_KEY,
-        { expiresIn: ACCESS_TOKEN_EXPIRY_TIME }
-      );
+        const accessToken = jwt.sign(
+          { user_id: foundUser.id },
+          process.env.JWT_ACCESS_TOKEN_SECRET_KEY,
+          { expiresIn: ACCESS_TOKEN_EXPIRY_TIME }
+        );
 
-      res.setHeader("Authorization", `Bearer ${accessToken}`);
+        res.setHeader("Authorization", `Bearer ${accessToken}`);
 
-      return res.send(JSON.stringify({ accessToken }));
-    }
-  );
+        return res.send(JSON.stringify({ accessToken }));
+      }
+    );
+  } catch (err) {
+    console.log(`:500 :GET /api/auth/refresh message: access token 갱신 실패`);
+    console.error(err);
+    res.status(500).send(
+      JSON.stringify({
+        success: false,
+        message: "알 수 없는 에러가 발생했습니다.",
+      })
+    );
+  }
 };
 
 module.exports = {
