@@ -18,7 +18,7 @@ router.use("/api/account", verifyJWT, accountRouter);
 /* GET home page. */
 
 router.get("/", async (req, res, next) => {
-  const query = { text: "SELECT * FROM users" };
+  const query = { text: "SELECT * FROM apikeyper_users" };
   try {
     await pgQuery(query);
     console.log(":200 :GET / message: APIKeyPER에 어서오세요.");
