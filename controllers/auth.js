@@ -25,7 +25,7 @@ const logIn = async (req, res) => {
     const { email, password } = req.body;
 
     const findEmailQuery = {
-      text: `SELECT * FROM users WHERE email = $1`,
+      text: `SELECT * FROM apikeyper_users WHERE email = $1`,
       values: [email],
     };
     const { rows } = await pgQuery(findEmailQuery);
@@ -79,7 +79,7 @@ const logIn = async (req, res) => {
     );
 
     const updateRefreshTokenQuery = {
-      text: `UPDATE users SET refresh_token = $1 WHERE id = $2`,
+      text: `UPDATE apikeyper_users SET refresh_token = $1 WHERE id = $2`,
       values: [refreshToken, userId],
     };
 
@@ -119,7 +119,7 @@ const signUp = async (req, res) => {
     const hashedPassword = bcrypt.hashSync(password, salt);
 
     const createNewUserDataQuery = {
-      text: `INSERT INTO users(username, email, password) VALUES ($1, $2, $3)`,
+      text: `INSERT INTO apikeyper_users(username, email, password) VALUES ($1, $2, $3)`,
       values: [username, email, hashedPassword],
     };
 
@@ -189,7 +189,7 @@ const logOut = async (req, res) => {
 
     const refreshToken = cookies.refreshToken;
     const isRefreshTokenInDB = {
-      text: `SELECT * FROM users WHERE refresh_token = $1`,
+      text: `SELECT * FROM apikeyper_users WHERE refresh_token = $1`,
       values: [refreshToken],
     };
 
@@ -203,7 +203,7 @@ const logOut = async (req, res) => {
     }
 
     const deleteRefreshTokenQuery = {
-      text: `UPDATE users SET refresh_token = null WHERE id = $1`,
+      text: `UPDATE apikeyper_users SET refresh_token = null WHERE id = $1`,
       values: [rows[0].id],
     };
 
@@ -231,7 +231,7 @@ const validateEmail = async (req, res) => {
   try {
     const { email } = req.body;
     const isExistingUserQuery = {
-      text: `SELECT * FROM users WHERE email = $1`,
+      text: `SELECT * FROM apikeyper_users WHERE email = $1`,
       values: [email],
     };
     const { rows: existingUser } = await pgQuery(isExistingUserQuery);
@@ -292,7 +292,7 @@ const verifyEmailVerificationToken = async (req, res) => {
 
         try {
           const emailVerificationQuery = {
-            text: `UPDATE users SET is_verified = 'true' WHERE email = $1 `,
+            text: `UPDATE apikeyper_users SET is_verified = 'true' WHERE email = $1 `,
             values: [userEmail],
           };
 
@@ -331,7 +331,7 @@ const handleRefreshToken = async (req, res) => {
     const refreshToken = cookies.refreshToken;
 
     const findRefreshTokenQuery = {
-      text: `SELECT * FROM users WHERE refresh_token = $1`,
+      text: `SELECT * FROM apikeyper_users WHERE refresh_token = $1`,
       values: [refreshToken],
     };
 
