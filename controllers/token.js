@@ -5,7 +5,7 @@ const getAllTokenData = async (req, res) => {
   const { user_id } = req;
   try {
     const getAllTokenDataQuery = {
-      text: `SELECT * FROM tokens WHERE user_id = $1`,
+      text: `SELECT * FROM apikeyper_tokens WHERE user_id = $1`,
       values: [user_id],
     };
 
@@ -39,7 +39,7 @@ const saveTokenData = async (req, res) => {
   const { user_id } = req;
   try {
     const saveTokenDataQuery = {
-      text: `INSERT INTO tokens(token_name, token_description, token_value, token_created_date, token_expiry_date, notification_option, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+      text: `INSERT INTO apikeyper_tokens(token_name, token_description, token_value, token_created_date, token_expiry_date, notification_option, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
       values: [
         tokenName,
         tokenDescription,
@@ -66,7 +66,7 @@ const getTokenData = async (req, res) => {
 
   try {
     const getTokenDataQuery = {
-      text: `SELECT * FROM tokens WHERE id = $1`,
+      text: `SELECT * FROM apikeyper_tokens WHERE id = $1`,
       values: [tokenDataId],
     };
 
@@ -103,7 +103,7 @@ const updateTokenData = async (req, res) => {
   } = req.body;
   try {
     const updateTokenDataQuery = {
-      text: `UPDATE tokens SET token_name = $1, token_description = $2, token_value = $3, token_created_date = $4, token_expiry_date = $5, notification_option = $6 WHERE id = $7`,
+      text: `UPDATE apikeyper_tokens SET token_name = $1, token_description = $2, token_value = $3, token_created_date = $4, token_expiry_date = $5, notification_option = $6 WHERE id = $7`,
       values: [
         tokenName,
         tokenDescription,
@@ -130,7 +130,7 @@ const deleteTokenData = async (req, res) => {
 
   try {
     const deleteTokenDataQuery = {
-      text: `DELETE FROM tokens WHERE id = $1 AND user_id = $2`,
+      text: `DELETE FROM apikeyper_tokens WHERE id = $1 AND user_id = $2`,
       values: [tokenDataId, user_id],
     };
 

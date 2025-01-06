@@ -5,7 +5,7 @@ const deleteAccount = async (req, res) => {
 
   try {
     const deleteAccountQuery = {
-      text: `DELETE FROM users WHERE id = $1`,
+      text: `DELETE FROM apikeyper_users WHERE id = $1`,
       values: [user_id],
     };
     await pgQuery(deleteAccountQuery);
@@ -34,7 +34,7 @@ const addDeviceToken = async (req, res) => {
 
   try {
     const saveDeviceTokenQuery = {
-      text: `UPDATE users SET device_token = $1 WHERE id = $2`,
+      text: `UPDATE apikeyper_users SET device_token = $1 WHERE id = $2`,
       values: [deviceToken, user_id],
     };
     await pgQuery(saveDeviceTokenQuery);

@@ -17,10 +17,17 @@ const pgQuery = async (query) => {
   } catch (err) {
     throw new Error(err);
   } finally {
-    client.release(); // 사용 후 연결 반환
+    client.release();
   }
 };
 
-console.log("POSTGRESQL is connected");
+(async function () {
+  try {
+    await pgQuery("SELECT * FROM apikeyper_users");
+    console.log("Postgresql is connected");
+  } catch (err) {
+    throw new Error(err);
+  }
+})();
 
 module.exports = pgQuery;
